@@ -20,7 +20,7 @@ Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 Route::get('/sobrenos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
 
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
-Route::post('/contato', [ContatoController::class, 'contato'])->name('site.contato2');
+Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato2');
 
 Route::get('/login', function(){return "Login";})->name('site.login');
 
