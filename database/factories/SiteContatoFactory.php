@@ -18,7 +18,7 @@ class SiteContatoFactory extends Factory
             'nome' => fake()->name(),
             'telefone' => fake()->tollFreePhoneNumber(),
             'email' => fake()->safeEmail(),
-            'motivo_contato' => random_int(1,3),
+            'motivo_contato_id' => random_int(1,3),
             'mensagem' => fake()->text(200),
         ];
     }
