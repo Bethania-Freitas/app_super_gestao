@@ -1,30 +1,38 @@
 {{ $slot }}
-
-<form action="{{ route('site.contato') }}" method="post">
+<form action={{ route('site.contato') }} method="post">
     @csrf
-    <input name="nome" valeu="{{ old('nome') }}" type="text" placeholder="Nome" class="{{ $classe }}">
+    <input name="nome" value="{{ old('nome') }}" type="text" placeholder="Nome" class="{{ $classe }}">
+    {{ ($errors->has('nome')) ? $errors->first('nome') : '' }}   
     <br>
-    <input name="telefone" valeu="{{ old('telefone') }}" type="text" placeholder="Telefone" class="{{ $classe }}">
+    <input name="telefone" value="{{ old('telefone') }}" type="text" placeholder="Telefone" class="{{ $classe }}">
+    {{ ($errors->has('telefone')) ? $errors->first('telefone') : '' }}
     <br>
-    <input name="email"  valeu="{{ old('email') }}" type="text" placeholder="E-mail" class="{{ $classe }}">
+    <input name="email" value="{{ old('email') }}" type="text" placeholder="E-mail" class="{{ $classe }}">
+    {{ ($errors->has('email')) ? $errors->first('email') : '' }}
     <br>
-   
+
     <select name="motivo_contatos_id" class="{{ $classe }}">
         <option value="">Qual o motivo do contato?</option>
-        @foreach ($motivo_contatos as $key => $motivo_contato )
-            <option value="{{$motivo_contato->id}}" {{ old('motivo_contatos_id') == $motivo_contato->id ? 'selected' : ''}}>{{$motivo_contato->motivo_contato}}</option>            
+
+        @foreach($motivo_contatos as $key => $motivo_contato)
+            <option value="{{$motivo_contato->id}}" {{ old('motivo_contatos_id') == $motivo_contato->id ? 'selected' : '' }}>{{$motivo_contato->motivo_contato}}</option>
         @endforeach
     </select>
+    {{ ($errors->has('motivo_contatos_id')) ? $errors->first('motivo_contatos_id') : '' }}
+    <br>
+
+    <textarea name="mensagem" class="{{ $classe }}">{{ (old('mensagem') != '') ? old('mensagem') : 'Preencha aqui a sua mensagem' }}</textarea>
+    {{ ($errors->has('mensagem')) ? $errors->first('mensagem') : '' }}
     <br>
     
-    <textarea name="mensagem" class="{{ $classe }}">
-    @if (old('mensagem') != '')
-        value="{{ old('mensagem') }}"
-    @else
-        Preencha aqui a sua mensagem      
-    @endif
-        
-    </textarea>
-    <br>
     <button type="submit" class="{{ $classe }}">ENVIAR</button>
 </form>
+
+@if ($errors->any())    
+    <div class="alert alert-primary" role="alert">
+        @foreach ($errors->all() as $erro )
+            {{ $erro }}
+            <br>
+        @endforeach
+    </div>
+@endif
