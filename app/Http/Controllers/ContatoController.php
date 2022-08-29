@@ -30,7 +30,9 @@ class ContatoController extends Controller
     }
 
     public function salvar(SiteContatoRequest $request){
-        SiteContato::create($request->all());
         
+        SiteContato::create($request->all());
+        return redirect()->route('site.index');
+       
     }
 }
