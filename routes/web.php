@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobreNosController;
+use App\Http\Controllers\LoginController;
 use App\Http\Middleware\LogAcessoMIddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -24,18 +25,13 @@ Route::get('/sobrenos', [SobreNosController::class, 'sobreNos'])->name('site.sob
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato2');
 
-Route::get('/login', function(){return "Login";})->name('site.login');
+Route::get('/login', [LoginController::class, 'index'])->name('site.login');
+Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login2');
 
-Route::prefix('/app')->group(function(){
-    Route::middleware('autenticacao')
-        ->get('/clientes', function() { return 'Clientes'; })
-        ->name('app.clientes');
-    Route::middleware('autenticacao')
-        ->get('/fornecedores', [FornecedorController::class, 'index'])
-        ->name('app.fornecedores');
-    Route::middleware('autenticacao')
-        ->get('/produtos', function() { return 'Produtos'; })
-        ->name('app.produtos');
+Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(function(){
+    Route::get('/clientes', function() { return 'Clientes'; })->name('app.clientes');
+    Route::get('/fornecedores', [FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get('/produtos', function() { return 'Produtos'; })->name('app.produtos');
 });
 
 Route::fallback(function(){
