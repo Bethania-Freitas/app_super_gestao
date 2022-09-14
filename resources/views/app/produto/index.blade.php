@@ -12,7 +12,7 @@
 
     <div class="menu">
         <ul>
-            <li><a href="">NOVO</a></li>
+            <li><a href="{{ route('produto.create') }}">NOVO</a></li>
             <li><a href="">Consulta</a></li>
         </ul>
     </div>
@@ -28,6 +28,7 @@
                         <th>Unidade ID</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +37,8 @@
                             <th>{{ $produto->nome }}</th>
                             <th>{{ $produto->descricao }}</th>
                             <th>{{ $produto->peso }}</th>
-                            <th>{{ $produtos->unidade_id }}</th>
+                            <th>{{ $produto->unidade_id }}</th>
+                            <th><a href="{{ route('produto.show', ['produto' => $produto->id ]) }}">Visualizar</a></th>
                             <th><a href="">Excluir</a></th>
                             <th><a href="">Editar</a></th>
                         </tr>
