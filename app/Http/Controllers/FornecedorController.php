@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fornecedor;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class FornecedorController extends Controller
 {
@@ -76,5 +77,11 @@ class FornecedorController extends Controller
 
         return view('app.fornecedor.adicionar', ['fornecedor' => $fornecedor, 'msg' => $msg]);
         
+    }
+
+    public function excluir($id){
+        Fornecedor::find($id)->delete();
+
+        Return redirect()->route('app.fornecedor');
     }
 }

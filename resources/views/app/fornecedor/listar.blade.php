@@ -37,14 +37,16 @@
                             <th>{{ $fornecedor->site }}</th>
                             <th>{{ $fornecedor->uf }}</th>
                             <th>{{ $fornecedor->email }}</th>
-                            <th>Excluir</th>
+                            <th><a href="{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></th>
                             <th><a href="{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></th>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             {{ $fornecedores->appends($request)->links() }}
-            
+            <br>
+            Exibindo {{ $fornecedores->firstItem() }} a {{ $fornecedores->lastItem() }} do total de  {{ $fornecedores->total() }} fornecedores.
+            <br>
         </div>
     </div>
 
