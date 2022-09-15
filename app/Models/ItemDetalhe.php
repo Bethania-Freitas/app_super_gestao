@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProdutoDetalhe extends Model
+class ItemDetalhe extends Model
 {
     use HasFactory;
-    
+
+    protected $table = 'produto_detalhes';
+
     protected $fillable = [
         'produto_id',
         'comprimento',
@@ -17,9 +19,7 @@ class ProdutoDetalhe extends Model
         'unidade_id'
     ];
 
-    public function produto() {
-        return $this->belongsTo('App\models\produto');
+    public function item() {
+        return $this->belongsTo('App\Models\Item', 'produto_id', 'id');
     }
-    
-    
 }
